@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { InfoWindow } from 'react-google-maps'
 import { useDispatch } from 'react-redux'
 import { updateMarker, removeMarker } from '../reducers/markerReducer'
@@ -7,16 +7,39 @@ const MarkerWindow = ({ clickedMarker, setClickedMarker }) => {
   const [editing, setEditing] = useState(false)
   const [updateDescription, setUpdateDescription] = useState('')
   const [updatePlaceName, setUpdatePlaceName] = useState('')
+  const [image, setImage] = useState(null)
+  const [imageData, setImageData] = useState(null)
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (image) {
+      const file = document.getElementById("imageInput").files[0]
+      if (file.size < 1000 * 1024) {
+        const fileReader = new FileReader()
+        fileReader.onload = (event) => {
+          setImageData(event.target.result)
+        }
+        fileReader.readAsDataURL(file)
+      } else {
+        console.log("Maximum image size is 1MB")
+      }
+    }
+  }, [image])
 
   const update = (event) => {
     event.preventDefault()
 
     const id = clickedMarker._id
-    const marker = {
+
+    let marker = {
       placeName: updatePlaceName,
       description: updateDescription
     }
+
+    if (imageData) {
+      marker = { ...marker, image: imageData }
+    }
+
     dispatch(updateMarker(marker, id))
 
     setUpdateDescription('')
@@ -45,6 +68,8 @@ const MarkerWindow = ({ clickedMarker, setClickedMarker }) => {
   const cancelEditing = () => {
     setUpdateDescription('')
     setUpdatePlaceName('')
+    setImage(null)
+    setImageData(null)
     setEditing(false)
   }
 
@@ -82,6 +107,13 @@ const MarkerWindow = ({ clickedMarker, setClickedMarker }) => {
               onChange={(event) => setUpdateDescription(event.target.value)}
               value={updateDescription}
             />
+            <label>Maximum image size 1MB</label>
+            <input
+              id="imageInput"
+              type="file"
+              accept="image/*"
+              onChange={(event) => setImage(event.target.value)}
+            />
             <div className='buttons'>
               <button type="submit">Confirm</button>
               <button onClick={cancelEditing}>Cancel</button>
@@ -92,6 +124,7 @@ const MarkerWindow = ({ clickedMarker, setClickedMarker }) => {
         <div className="infoWindow">
           <h3 className='wrap'>{clickedMarker.placeName}</h3>
           <p>{clickedMarker.description}</p>
+          {clickedMarker?.image && <img src={clickedMarker.image} className="markerImage" alt="" />}
           <div className='buttons'>
             <button onClick={startEditing}>Edit</button>
             <button onClick={remove}>Delete</button>

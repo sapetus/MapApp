@@ -69,6 +69,12 @@ hr {
   overflow-wrap: break-word;
 }
 
+.markerImage {
+  width: 100%;
+  height: auto;
+  padding: 1em 0;
+}
+
 h3.wrap {
   width: 100%;
   text-overflow: ellipsis;

@@ -10,7 +10,8 @@ const markerSchema = mongoose.Schema({
   description: {
     type: String,
     maxLength: 500
-  }
+  },
+  image: String
 })
 
 module.exports = mongoose.model('Marker', markerSchema)
