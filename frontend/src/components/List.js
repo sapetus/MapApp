@@ -7,7 +7,7 @@ const List = () => {
   return (
     <div id="list">
       <hr />
-      <ul>
+      <ul className='markerList'>
         {markers.map(marker => (
           <li className="markerInfo">
             <div className='markerInfo container'>

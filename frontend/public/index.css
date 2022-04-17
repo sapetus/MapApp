@@ -47,6 +47,10 @@ body {
   width: 80%;
 }
 
+.markerList {
+  width: 100%;
+}
+
 .markerInfo {
   width: 100%;
 }

@@ -7,6 +7,8 @@ import { createMarker } from '../reducers/markerReducer'
 const MarkerCreationWindow = ({ clickData, setClickData }) => {
   const [description, setDescription] = useState('')
   const [placeName, setPlaceName] = useState('')
+  const [image, setImage] = useState(null)
+  const [imageData, setImageData] = useState(null)
 
   const dispatch = useDispatch()
 
@@ -15,6 +17,21 @@ const MarkerCreationWindow = ({ clickData, setClickData }) => {
     setPlaceName('')
   }, [clickData])
 
+  useEffect(() => {
+    if (image) {
+      const file = document.getElementById("imageInput").files[0]
+      if (file.size < 1000 * 1024) {
+        const fileReader = new FileReader()
+        fileReader.onload = (event) => {
+          setImageData(event.target.result)
+        }
+        fileReader.readAsDataURL(file)
+      } else {
+        console.log("Maximum image size is 1MB")
+      }
+    }
+  }, [image])
+
   const create = (event) => {
     event.preventDefault()
 
@@ -22,7 +39,8 @@ const MarkerCreationWindow = ({ clickData, setClickData }) => {
       lat: clickData.latLng.lat(),
       lng: clickData.latLng.lng(),
       placeName: placeName,
-      description: description
+      description: description,
+      image: imageData
     }
     dispatch(createMarker(marker))
 
@@ -60,6 +78,13 @@ const MarkerCreationWindow = ({ clickData, setClickData }) => {
             maxLength={500}
             onChange={(event) => setDescription(event.target.value)}
             value={description}
+          />
+          <label>Maximum image size 1MB</label>
+          <input
+            id="imageInput"
+            type="file"
+            accept="image/*"
+            onChange={(event) => setImage(event.target.value)}
           />
           <button type="submit">Create Marker</button>
         </form>
