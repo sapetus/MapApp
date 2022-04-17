@@ -9,7 +9,7 @@ const List = () => {
       <hr />
       <ul className='markerList'>
         {markers.map(marker => (
-          <li className="markerInfo">
+          <li className="markerInfo" key={marker._id}>
             <div className='markerInfo container'>
               <div className='markerInfo subcontainer'>
                 <h3>{marker.placeName}</h3>

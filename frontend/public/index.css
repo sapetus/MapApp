@@ -5,7 +5,7 @@
 body {
   padding: 0;
   margin: 0;
-  background-color: #131313;
+  background-color: #7bbfea;
   height: 100vh; 
 }
 
@@ -21,9 +21,9 @@ body {
   flex-direction: column;
   align-items: center;
   width: 80%;
-  height: auto;
-  padding-bottom: 3vh;
-  background-color: #7bbfea;
+  height: 100%;
+  max-height: auto;
+  background-color: #ffffff;
 }
 
 #header {
