@@ -26,6 +26,10 @@ const MarkerWindow = ({ clickedMarker, setClickedMarker }) => {
     }
   }, [image])
 
+  /*
+    Updating gives a 'setPosition: not a LatLng or LatLngLiteral: in property lat: not a number' -error
+    Doesn't seem to affect functionality
+  */
   const update = (event) => {
     event.preventDefault()
 
@@ -33,11 +37,8 @@ const MarkerWindow = ({ clickedMarker, setClickedMarker }) => {
 
     let marker = {
       placeName: updatePlaceName,
-      description: updateDescription
-    }
-
-    if (imageData) {
-      marker = { ...marker, image: imageData }
+      description: updateDescription,
+      image: imageData
     }
 
     dispatch(updateMarker(marker, id))
@@ -62,6 +63,7 @@ const MarkerWindow = ({ clickedMarker, setClickedMarker }) => {
   const startEditing = () => {
     setUpdateDescription(clickedMarker.description)
     setUpdatePlaceName(clickedMarker.placeName)
+    setImageData(clickedMarker?.image)
     setEditing(true)
   }
 
@@ -124,7 +126,9 @@ const MarkerWindow = ({ clickedMarker, setClickedMarker }) => {
         <div className="infoWindow">
           <h3 className='wrap'>{clickedMarker.placeName}</h3>
           <p>{clickedMarker.description}</p>
-          {clickedMarker?.image && <img src={clickedMarker.image} className="markerImage" alt="" />}
+          {clickedMarker?.image &&
+            <img src={clickedMarker.image} className="markerImage" alt="" />
+          }
           <div className='buttons'>
             <button onClick={startEditing}>Edit</button>
             <button onClick={remove}>Delete</button>
