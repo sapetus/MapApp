@@ -1,0 +1,6 @@
+PUT http://localhost:3001/api/markers/625992f1b79715b73a18db88
+Content-Type: application/json
+
+{
+  "text": "It changed again!"
+}

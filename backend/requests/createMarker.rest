@@ -1,0 +1,8 @@
+POST http://localhost:3001/api/markers
+Content-Type: application/json
+
+{
+  "lat": "10",
+  "lng": "11",
+  "text": "this right here is a marker"
+}
