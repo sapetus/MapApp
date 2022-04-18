@@ -117,6 +117,7 @@ const MarkerWindow = ({ clickedMarker, setClickedMarker }) => {
               onChange={(event) => setImage(event.target.value)}
             />
             <div className='buttons'>
+              <button onClick={() => setImageData(null)}>Remove Image</button>
               <button type="submit">Confirm</button>
               <button onClick={cancelEditing}>Cancel</button>
             </div>
