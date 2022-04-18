@@ -8,7 +8,8 @@ const List = () => {
     <div id="list">
       <hr />
       <ul className='markerList'>
-        {markers.map(marker => (
+        {/* reversed to show newest marker first */}
+        {markers.reverse().map(marker => (
           <li className="markerInfo" key={marker._id}>
             <div className='markerInfo container'>
               <div className='markerInfo subcontainer'>

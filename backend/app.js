@@ -16,7 +16,8 @@ mongoose.connect(process.env.MONGODB_URI)
   })
 
 app.use(cors())
-app.use(express.json({ limit: '1MB' }))
+//The 2MB is to allow some leeway for images, as some 1MB image files gave payload too large error
+app.use(express.json({ limit: '2MB' }))
 app.use('/api/markers', markersRouter)
 app.use(express.static(path.join(__dirname, '../frontend/build')))
 app.get('/', (req, res) => {
