@@ -3,7 +3,7 @@ import markerService from '../services/markerService'
 const reducer = (state = [], action) => {
   switch (action.type) {
     case 'CREATE:MARKER':
-      return [...state, action.data]
+      return [action.data, ...state]
     case 'INIT:MARKERS':
       return action.data
     case 'UPDATE:MARKER':
@@ -52,7 +52,7 @@ export const initializeMarkers = () => {
     const markers = await markerService.getAll()
     dispatch({
       type: 'INIT:MARKERS',
-      data: markers
+      data: markers.reverse()
     })
   }
 }

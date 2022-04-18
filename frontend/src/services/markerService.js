@@ -1,7 +1,8 @@
 import axios from 'axios'
 //this works ONLY in production. For this to work locally,
 //change this to http://localhost:<backendPort>/api/markers
-const baseUrl = '/api/markers'
+// baseUrl = '/api/markers'
+const baseUrl = 'http://localhost:3001/api/markers'
 
 const getAll = async () => {
   const request = await axios.get(baseUrl)

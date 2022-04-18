@@ -9,7 +9,7 @@ const List = () => {
       <hr />
       <ul className='markerList'>
         {/* reversed to show newest marker first */}
-        {markers.reverse().map(marker => (
+        {markers.map(marker => (
           <li className="markerInfo" key={marker._id}>
             <div className='markerInfo container'>
               <div className='markerInfo subcontainer'>

@@ -27,7 +27,7 @@ const MarkerCreationWindow = ({ clickData, setClickData }) => {
         }
         fileReader.readAsDataURL(file)
       } else {
-        console.log("Maximum image size is 1MB")
+        alert("Image is too large!")
       }
     }
   }, [image])
